@@ -1,5 +1,6 @@
 package com.springfx;
 
+import com.springfx.config.SpringFXMLLoader;
 import com.springfx.config.scenes.FXScene;
 import com.springfx.config.scenes.StageManager;
 import javafx.application.Application;
@@ -7,6 +8,7 @@ import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -61,11 +63,16 @@ public class SpringFXRunner extends Application {
 
     @Override
     public void start(Stage stage) {
-        StageManager stageManager = springContext.getBean(StageManager.class, stage);
+        SpringFXMLLoader loader = new SpringFXMLLoader(springContext);
+        ConfigurableListableBeanFactory beanFactory = springContext.getBeanFactory();
+        beanFactory.registerSingleton(loader.getClass().getCanonicalName(), loader);
+        StageManager stageManager = new StageManager(stage, loader);
+        beanFactory.registerSingleton(stageManager.getClass().getCanonicalName(), stageManager);
+        StageManager stageManagerBean = springContext.getBean(StageManager.class);
         log.config("Setting up stage manager ");
-        setResourceBundle(stageManager);
-        stageManager.setMainScene(MAIN_SCENE);
-        stageManager.displayInitialScene();
+        setResourceBundle(stageManagerBean);
+        stageManagerBean.setMainScene(MAIN_SCENE);
+        stageManagerBean.displayInitialScene();
     }
 
     private void setResourceBundle(StageManager stageManager) {
