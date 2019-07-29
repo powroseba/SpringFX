@@ -1,6 +1,7 @@
 package com.springfx.config.scenes;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Every scene should implement this methods to give {@link StageManager} possibility to switch scenes
@@ -31,6 +32,10 @@ public interface FXScene {
     List<FXScene> getAllScenes();
 
     default String identifier() {
-        return getTitle() + IDENTIFIER_DELIMITER + getFXMLFilePath();
+        String randomSuffixInCaseOfAlwaysNewScene = "";
+        if (isAlwaysNewScene()) {
+            randomSuffixInCaseOfAlwaysNewScene = UUID.randomUUID().toString();
+        }
+        return getTitle() + randomSuffixInCaseOfAlwaysNewScene + IDENTIFIER_DELIMITER + getFXMLFilePath();
     }
 }

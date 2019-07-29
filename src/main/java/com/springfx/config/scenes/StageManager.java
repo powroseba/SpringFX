@@ -18,7 +18,7 @@ public class StageManager {
     private final SpringFXMLLoader springFXMLLoader;
     private static FXScene MAIN_SCENE;
     private static ResourceBundle RESOURCE_BUNDLE;
-    private static final Set<Stage> stageCollection = new HashSet<>();
+    private static final HashMap<String, Stage> stageCollection = new HashMap<>();
 
     public StageManager(Stage stage, SpringFXMLLoader springFXMLLoader) {
         this.stage = stage;
@@ -27,6 +27,7 @@ public class StageManager {
 
     public void displayInitialScene() {
         log.info("Displaying main page");
+        stageCollection.put(MAIN_SCENE.identifier(), stage);
         switchScene(MAIN_SCENE);
     }
 
@@ -39,25 +40,27 @@ public class StageManager {
     public void showNewScene(final FXScene scene) {
         log.info("Showing new scene : " + scene.getTitle());
         Optional<FXScene> fxScene = findScene(scene);
-        AtomicReference<Stage> stage = new AtomicReference<>(new Stage());
-        // TODO stage always new ma byc zawzze nowy a ten no always new nigdy nie ma byc nowy
-        stageCollection.stream()
-                .filter(s -> findScene(scene).isPresent())
-                .findAny()
-                .filter(s -> fxScene.isPresent())
-                .filter(s -> !fxScene.get().isAlwaysNewScene())
-                .ifPresent(stage::set);
-        stageCollection.add(stage.get());
-        Parent sceneParent = loadViewNodeHierarchy(scene.getFXMLFilePath(), RESOURCE_BUNDLE);
-        stage.get().setTitle(scene.getTitle());
-        stage.get().setScene(new Scene(sceneParent));
-        stage.get().show();
+        fxScene.ifPresent(passedScene -> {
+            Stage stage = stageCollection.get(passedScene.identifier());
+            if (stage == null || passedScene.isAlwaysNewScene()) {
+                stage = new Stage();
+                Parent sceneParent = loadViewNodeHierarchy(passedScene.getFXMLFilePath(), RESOURCE_BUNDLE);
+                stage.setTitle(passedScene.getTitle());
+                stage.setScene(new Scene(sceneParent));
+                stageCollection.put(passedScene.identifier(), stage);
+            } else {
+                switchScene(scene);
+//                return;
+            }
+            stage.show();
+        });
     }
+
 
     private Optional<FXScene> findScene(FXScene scene) {
         return scene.getAllScenes().stream()
-                .filter(s -> s.getTitle().equals(s.getTitle()) && s.getFXMLFilePath().equals(s.getFXMLFilePath()) && s.isAlwaysNewScene() == s.isAlwaysNewScene())
-                .findAny();
+                .filter(s -> s.getFXMLFilePath().equals(scene.getFXMLFilePath()))
+                .findFirst();
     }
 
     private void show(final Parent rootNode, String title) {
