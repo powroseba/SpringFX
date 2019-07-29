@@ -22,7 +22,7 @@ public class SpringFXMLLoader {
     public Parent load(String fxmlPath, ResourceBundle resourceBundle) throws IOException {
         log.config("Setting up Spring FXML loader");
         FXMLLoader loader = new FXMLLoader();
-        loader.setControllerFactory(param -> context.getBean(param));
+        loader.setControllerFactory(context::getBean);
         loader.setResources(resourceBundle);
         loader.setLocation(getClass().getResource(fxmlPath));
         return loader.load();

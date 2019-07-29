@@ -6,8 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 
 public class StageManager {
@@ -18,6 +18,7 @@ public class StageManager {
     private final SpringFXMLLoader springFXMLLoader;
     private static FXScene MAIN_SCENE;
     private static ResourceBundle RESOURCE_BUNDLE;
+    private static final Set<Stage> stageCollection = new HashSet<>();
 
     public StageManager(Stage stage, SpringFXMLLoader springFXMLLoader) {
         this.stage = stage;
@@ -33,6 +34,30 @@ public class StageManager {
         log.info("Switching scene to " + scene.getTitle());
         Parent viewRootNodeHierarchy = loadViewNodeHierarchy(scene.getFXMLFilePath(), RESOURCE_BUNDLE);
         show(viewRootNodeHierarchy, scene.getTitle());
+    }
+
+    public void showNewScene(final FXScene scene) {
+        log.info("Showing new scene : " + scene.getTitle());
+        Optional<FXScene> fxScene = findScene(scene);
+        AtomicReference<Stage> stage = new AtomicReference<>(new Stage());
+        // TODO stage always new ma byc zawzze nowy a ten no always new nigdy nie ma byc nowy
+        stageCollection.stream()
+                .filter(s -> findScene(scene).isPresent())
+                .findAny()
+                .filter(s -> fxScene.isPresent())
+                .filter(s -> !fxScene.get().isAlwaysNewScene())
+                .ifPresent(stage::set);
+        stageCollection.add(stage.get());
+        Parent sceneParent = loadViewNodeHierarchy(scene.getFXMLFilePath(), RESOURCE_BUNDLE);
+        stage.get().setTitle(scene.getTitle());
+        stage.get().setScene(new Scene(sceneParent));
+        stage.get().show();
+    }
+
+    private Optional<FXScene> findScene(FXScene scene) {
+        return scene.getAllScenes().stream()
+                .filter(s -> s.getTitle().equals(s.getTitle()) && s.getFXMLFilePath().equals(s.getFXMLFilePath()) && s.isAlwaysNewScene() == s.isAlwaysNewScene())
+                .findAny();
     }
 
     private void show(final Parent rootNode, String title) {
