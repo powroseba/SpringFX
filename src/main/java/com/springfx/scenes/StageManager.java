@@ -1,5 +1,8 @@
 package com.springfx.scenes;
 
+/**
+ * Stage manager interface of method to manage scenes
+ */
 public interface StageManager {
 
     void displayInitialScene();

@@ -19,7 +19,6 @@ public class StageManagerImpl extends AbstractStageManager {
     private static final Logger log = Logger.getLogger(StageManagerImpl.class.getName());
     private static final HashMap<String, Stage> stageCollection = new HashMap<>();
 
-    private FXScene mainScene;
     private ResourceBundle resourceBundle;
 
     public StageManagerImpl(Stage stage, SpringFxmlLoader springFXMLLoader) {
@@ -61,7 +60,9 @@ public class StageManagerImpl extends AbstractStageManager {
             stage = new Stage();
             Parent sceneParent = loadViewNodeHierarchy(scene.getFxmlFilePath(), resourceBundle);
             stage.setTitle(scene.getTitle());
+            prepareSizeOfStage(scene, stage);
             stage.setScene(new Scene(sceneParent));
+            stage.setResizable(scene.isResizable());
             stageCollection.put(scene.identifier(), stage);
         } else {
             switchScene(scene);

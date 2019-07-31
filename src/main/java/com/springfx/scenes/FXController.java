@@ -11,6 +11,7 @@ public abstract class FXController implements Initializable {
     private StageManagerImpl stageManager;
 
     protected void switchScene(FXScene scene) {
+        stageManager.getStage();
         stageManager.switchScene(scene);
     }
 

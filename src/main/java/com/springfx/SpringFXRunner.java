@@ -12,6 +12,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+/**
+ * Main class of SpringFX, this class is setting up and tie together context of java fx application and spring application context.
+ * This class also include safe method of cleaning application context
+ */
 public class SpringFXRunner extends Application {
 
     private static final Logger log = Logger.getLogger(SpringFXRunner.class.getName());
@@ -20,6 +24,13 @@ public class SpringFXRunner extends Application {
     private static Class FX_RUNNER_CLASS;
     private static FXScene MAIN_SCENE;
 
+    /**
+     * Spring FX runner method to start fx application
+     * @param runnerClass class which is spring context
+     * @param mainScene main scene of application
+     * @param args run arguments
+     * @throws IOException exception in case of null runner class or main scene
+     */
     public static void run(Class runnerClass, FXScene mainScene, String[] args) throws IOException {
         log.info("Running SpringFX application!");
         validateParameters(runnerClass, mainScene);
@@ -35,6 +46,9 @@ public class SpringFXRunner extends Application {
             throw new IOException("Scene file path or title cannot be empty String!");
     }
 
+    /**
+     * Method which setup application and tie java fx application context and spring application context
+     */
     @Override
     public void init() {
         log.config("Setting up context");
@@ -42,6 +56,10 @@ public class SpringFXRunner extends Application {
         log.config("Setting up initialized");
     }
 
+    /**
+     * Method to configure all necessary spring beans and show main scene
+     * @param stage
+     */
     @Override
     public void start(Stage stage) {
         ApplicationBeanConfigurer.configure(applicationContext, stage);
@@ -51,6 +69,9 @@ public class SpringFXRunner extends Application {
         stageManagerBean.displayInitialScene();
     }
 
+    /**
+     * Method to shutdown application and context
+     */
     @Override
     public void stop() {
         log.info("Stopping application");

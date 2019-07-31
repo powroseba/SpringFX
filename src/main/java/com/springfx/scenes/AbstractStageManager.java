@@ -10,12 +10,16 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
+/**
+ * Class which contains all root method to manage stages and scenes in application
+ */
 abstract class AbstractStageManager implements StageManager {
 
     private static final Logger log = Logger.getLogger(StageManagerImpl.class.getName());
 
     private final Stage stage;
     private final SpringFxmlLoader fxmlLoader;
+    protected FXScene mainScene;
 
     public AbstractStageManager(Stage stage, SpringFxmlLoader fxmlLoader) {
         this.stage = stage;
@@ -38,10 +42,11 @@ abstract class AbstractStageManager implements StageManager {
         Scene scene = prepareScene(rootNode);
 
         stage.setTitle(fxScene.getTitle());
+        prepareSizeOfStage(fxScene, stage);
         stage.setScene(scene);
         stage.sizeToScene();
-        stage.setResizable(fxScene.isResizable());
         stage.centerOnScreen();
+        stage.setResizable(fxScene.isResizable());
 
         try {
             stage.toFront();
@@ -94,12 +99,14 @@ abstract class AbstractStageManager implements StageManager {
         closeApplication();
     }
 
-//    Stage prepareStage(FXScene scene, Stage stage) {
-//        stage.setTitle(scene.getTitle());
-//        stage.setResizable(scene.isResizable());
-//        stage.setMaxHeight(scene.getMaxHeight());
-//        stage.setMinHeight(scene.getMin);
-//    }
+    final void prepareSizeOfStage(FXScene scene, Stage stage) {
+        if (scene.isResizable()) {
+            stage.setMaxHeight(scene.getMaxHeight());
+            stage.setMinHeight(scene.getMinHeight());
+            stage.setMaxWidth(scene.getMaxWidth());
+            stage.setMinWidth(scene.getMinWidth());
+        }
+    }
 
     Stage getStage() {
         return stage;

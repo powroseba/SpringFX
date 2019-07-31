@@ -10,10 +10,19 @@ import org.springframework.context.ConfigurableApplicationContext;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
+/**
+ * Class to configure all necessary beans which are used in whole runtime of application to manage scenes and stages
+ */
 public class ApplicationBeanConfigurer {
 
     private static final Logger log = Logger.getLogger(ApplicationBeanConfigurer.class.getName());
 
+    /**
+     * Configuration method of {@link SpringFxmlLoader } bean and {@link com.springfx.scenes.StageManager } bean
+     * with optional resource bundle
+     * @param applicationContext spring context to register beans
+     * @param stage primary stage of fx application to register it in {@link com.springfx.scenes.StageManager }
+     */
     public static void configure(ConfigurableApplicationContext applicationContext, Stage stage) {
         SpringFxmlLoader loader = new SpringFxmlLoader(applicationContext);
         ConfigurableListableBeanFactory beanFactory = applicationContext.getBeanFactory();
