@@ -1,6 +1,6 @@
 package com.springfx.scenes;
 
-import com.springfx.laoder.SpringFxmlLoader;
+import com.springfx.loader.SpringFxmlLoader;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

@@ -1,4 +1,4 @@
-package com.springfx.laoder;
+package com.springfx.loader;
 
 
 import javafx.fxml.FXMLLoader;

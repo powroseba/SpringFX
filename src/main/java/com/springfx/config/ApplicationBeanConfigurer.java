@@ -1,6 +1,6 @@
 package com.springfx.config;
 
-import com.springfx.laoder.SpringFxmlLoader;
+import com.springfx.loader.SpringFxmlLoader;
 import com.springfx.scenes.StageManagerImpl;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
