@@ -30,6 +30,7 @@ abstract class AbstractStageManager implements StageManager {
      * Method to close application
      */
     public void closeApplication() {
+        log.exiting(getClass().getName(), "closeApplication()", "Closing the application!");
         Platform.exit();
     }
 
@@ -39,6 +40,7 @@ abstract class AbstractStageManager implements StageManager {
      * @param fxScene scene information
      */
     final void show(final Parent rootNode, FXScene fxScene) {
+        log.info("Showing stage with title : " + fxScene.getTitle());
         Scene scene = prepareScene(rootNode);
 
         stage.setTitle(fxScene.getTitle());
@@ -63,7 +65,7 @@ abstract class AbstractStageManager implements StageManager {
      * @return
      */
     final Parent loadViewNodeHierarchy(String fxmlFilePath, ResourceBundle resourceBundle) {
-        log.config("loading parent of scenes with scene passed in defined fxml file");
+        log.config("Loading parent of scenes with scene passed in defined fxml file");
         Parent globalSceneParent = null;
         try {
             globalSceneParent = fxmlLoader.load(fxmlFilePath, resourceBundle);

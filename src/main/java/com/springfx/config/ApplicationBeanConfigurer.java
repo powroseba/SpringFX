@@ -24,6 +24,7 @@ public class ApplicationBeanConfigurer {
      * @param stage primary stage of fx application to register it in {@link com.springfx.scenes.StageManager }
      */
     public static void configure(ConfigurableApplicationContext applicationContext, Stage stage) {
+        log.config("Setting up application beans");
         SpringFxmlLoader loader = new SpringFxmlLoader(applicationContext);
         ConfigurableListableBeanFactory beanFactory = applicationContext.getBeanFactory();
         beanFactory.registerSingleton(loader.getClass().getCanonicalName(), loader);

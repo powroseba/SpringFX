@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class StageManagerImpl extends AbstractStageManager {
 
     private static final Logger log = Logger.getLogger(StageManagerImpl.class.getName());
-    private static final HashMap<String, Stage> stageCollection = new HashMap<>();
+    private final HashMap<String, Stage> stageCollection = new HashMap<>();
 
     private ResourceBundle resourceBundle;
 

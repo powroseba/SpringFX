@@ -74,7 +74,7 @@ public class SpringFXRunner extends Application {
      */
     @Override
     public void stop() {
-        log.info("Stopping application");
+        log.config("Stopping application");
         applicationContext.close();
         Platform.exit();
     }

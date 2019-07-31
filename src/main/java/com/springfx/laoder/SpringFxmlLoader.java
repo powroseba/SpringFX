@@ -30,7 +30,7 @@ public class SpringFxmlLoader {
      * @throws IOException exception in case of lack of fxml file
      */
     public Parent load(String fxmlPath, ResourceBundle resourceBundle) throws IOException {
-        log.config("Setting up Spring FXML loader");
+        log.config("Loading fxml file from path: " + fxmlPath);
         FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory(context::getBean);
         loader.setResources(resourceBundle);
