@@ -1,5 +1,9 @@
-com/springfx/config/FXController.class
-com/springfx/config/scenes/FXScene.class
-com/springfx/config/SpringFXMLLoader.class
-com/springfx/config/scenes/StageManager.class
+com/springfx/laoder/SpringFxmlLoader.class
+com/springfx/scenes/FXController.class
+com/springfx/scenes/AbstractStageManager.class
+com/springfx/scenes/FXScene.class
+com/springfx/scenes/StageManager.class
+com/springfx/config/ApplicationBeanConfigurer.class
+com/springfx/config/ApplicationContextConfigurer.class
+com/springfx/scenes/StageManagerImpl.class
 com/springfx/SpringFXRunner.class

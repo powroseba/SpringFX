@@ -1,5 +1,9 @@
-/media/sebastian/Programming/JavaTutorials/SpringBoot/SpringFXLib/src/main/java/com/springfx/config/scenes/StageManager.java
-/media/sebastian/Programming/JavaTutorials/SpringBoot/SpringFXLib/src/main/java/com/springfx/config/scenes/FXScene.java
-/media/sebastian/Programming/JavaTutorials/SpringBoot/SpringFXLib/src/main/java/com/springfx/config/FXController.java
+/media/sebastian/Programming/JavaTutorials/SpringBoot/SpringFXLib/src/main/java/com/springfx/config/ApplicationContextConfigurer.java
+/media/sebastian/Programming/JavaTutorials/SpringBoot/SpringFXLib/src/main/java/com/springfx/config/ApplicationBeanConfigurer.java
 /media/sebastian/Programming/JavaTutorials/SpringBoot/SpringFXLib/src/main/java/com/springfx/SpringFXRunner.java
-/media/sebastian/Programming/JavaTutorials/SpringBoot/SpringFXLib/src/main/java/com/springfx/config/SpringFXMLLoader.java
+/media/sebastian/Programming/JavaTutorials/SpringBoot/SpringFXLib/src/main/java/com/springfx/scenes/StageManagerImpl.java
+/media/sebastian/Programming/JavaTutorials/SpringBoot/SpringFXLib/src/main/java/com/springfx/scenes/AbstractStageManager.java
+/media/sebastian/Programming/JavaTutorials/SpringBoot/SpringFXLib/src/main/java/com/springfx/scenes/FXScene.java
+/media/sebastian/Programming/JavaTutorials/SpringBoot/SpringFXLib/src/main/java/com/springfx/scenes/FXController.java
+/media/sebastian/Programming/JavaTutorials/SpringBoot/SpringFXLib/src/main/java/com/springfx/scenes/StageManager.java
+/media/sebastian/Programming/JavaTutorials/SpringBoot/SpringFXLib/src/main/java/com/springfx/laoder/SpringFxmlLoader.java

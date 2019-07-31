@@ -1,4 +1,4 @@
-package com.springfx.config;
+package com.springfx.laoder;
 
 
 import javafx.fxml.FXMLLoader;
@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-public class SpringFXMLLoader {
+public class SpringFxmlLoader {
 
-    private static final Logger log = Logger.getLogger(SpringFXMLLoader.class.getName());
+    private static final Logger log = Logger.getLogger(SpringFxmlLoader.class.getName());
 
     private final ApplicationContext context;
 
-    public SpringFXMLLoader(ApplicationContext context) {
+    public SpringFxmlLoader(ApplicationContext context) {
         this.context = context;
     }
 
