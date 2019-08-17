@@ -1,6 +1,7 @@
 package com.springfx.scenes;
 
-import java.util.List;
+import org.springframework.lang.NonNull;
+
 import java.util.UUID;
 
 /**
@@ -10,12 +11,14 @@ public interface FXScene {
 
     String IDENTIFIER_DELIMITER = ":";
 
+    @NonNull
     String getTitle();
 
     /**
      * Method to return path to template file
      * @return path to template file
      */
+    @NonNull
     String getFxmlFilePath();
 
     /**
@@ -30,12 +33,6 @@ public interface FXScene {
     int getMaxHeight();
     int getMinWidth();
     int getMinHeight();
-
-    /**
-     * Method to return all declared scenes in application
-     * @return list of FXScene
-     */
-    List<FXScene> getAllScenes();
 
     /**
      * Method to generate identifier, unique for scene with true in {@code isAlwaysNewScene() }

@@ -30,7 +30,7 @@ public class StageManagerImpl extends AbstractStageManager {
      */
     @Override
     public void displayInitialScene() {
-        log.info("Displaying main page");
+        log.config("Displaying main page");
         stageCollection.put(mainScene.identifier(), getStage());
         getStage().setOnCloseRequest(event -> closeApplication());
         switchScene(mainScene);
@@ -42,7 +42,7 @@ public class StageManagerImpl extends AbstractStageManager {
      */
     @Override
     public void switchScene(final FXScene scene) {
-        log.info("Switching scene to " + scene.getTitle());
+        log.config("Switching scene to " + scene.getTitle());
         Parent viewRootNodeHierarchy = loadViewNodeHierarchy(scene.getFxmlFilePath(), resourceBundle);
         show(viewRootNodeHierarchy, scene);
     }
@@ -54,7 +54,7 @@ public class StageManagerImpl extends AbstractStageManager {
      */
     @Override
     public void showNewScene(final FXScene scene) {
-        log.info("Showing new scene : " + scene.getTitle());
+        log.config("Showing new scene : " + scene.getTitle());
         Stage stage = stageCollection.get(scene.identifier());
         if (stage == null || scene.isAlwaysNewScene()) {
             stage = new Stage();

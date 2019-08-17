@@ -40,7 +40,7 @@ abstract class AbstractStageManager implements StageManager {
      * @param fxScene scene information
      */
     final void show(final Parent rootNode, FXScene fxScene) {
-        log.info("Showing stage with title : " + fxScene.getTitle());
+        log.config("Showing stage with title : " + fxScene.getTitle());
         Scene scene = prepareScene(rootNode);
 
         stage.setTitle(fxScene.getTitle());

@@ -36,7 +36,7 @@ public class ApplicationBeanConfigurer {
     private static void setResourceBundle(StageManagerImpl stageManager, ConfigurableApplicationContext applicationContext) {
         try {
             stageManager.setResourceBundle(applicationContext.getBean(ResourceBundle.class));
-            log.config("Resource bundle setup");
+            log.info("Resource bundle setup");
         } catch (NoSuchBeanDefinitionException e) {
             log.info("No Resource bundle defined!");
         }
