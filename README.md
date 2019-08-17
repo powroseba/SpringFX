@@ -1,11 +1,11 @@
-#SpringFX library
+# SpringFX library
 
-####To use SpringFX in your Spring-boot application you need to:</b>
+#### To use SpringFX in your Spring-boot application you need to:</b>
 
->#####1. Execute `mvn clean install` to install library in your .m2 repository or copy created jar to your project
+>##### 1. Execute `mvn clean install` to install library in your .m2 repository or copy created jar to your project
 >
 >---
->#####2. Add generated jar to your project or import it by maven
+>##### 2. Add generated jar to your project or import it by maven
 >*maven dependency code*
 >```xml
 ><dependency>
@@ -15,7 +15,7 @@
 ></dependency>
 >```
 > ---
->#####3. Create main class
+>##### 3. Create main class
 > Main class should be annotated by `@SpringBootApplication` annotation and application should be started by code
 >```
 >SpringFXRunner.run([1], [2], [3]);
@@ -38,7 +38,7 @@
 >
 > *Optional properties are maxWidth, minWidth, maxHeight, minHeight*
 >
-> #####For comfortable implementation of scenes i recommend enum type with 2 constructors. Example implementation with help or lombok can look like that:
+> ##### For comfortable implementation of scenes i recommend enum type with 2 constructors. Example implementation with help or lombok can look like that:
 >
 >```java
 >@AllArgsConstructor
@@ -77,14 +77,14 @@
 > `SpringFXRunner.run()` method can throw IOException in case of problem to find fxml file of scene
 >
 > ---
->#####4. Controllers of FX scenes
+>##### 4. Controllers of FX scenes
 > Every controller which implement `Initializable` interface need to be annotate by `@Component` annotation.
 > Otherwise SpringFX wont be ably to find required scene manager for current shown scene
-###That is all!
+### That is all!
 Library should run Spring-boot application with JavaFX context together and make possible creating JavaFX application.
 
 ---
-#####Additional features:
+##### Additional features:
 1. SpringFX is supporting i18n. You can easily create your own ResourceBundle bean and use it in your fxml files.
 2. Functionality of switching scenes is already implemented! <br>
    *SpringFX is defining StageManager bean which offer method to switch current scene to another passed as parameter or show this scene as new scene.
