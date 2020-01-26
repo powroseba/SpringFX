@@ -20,8 +20,9 @@ public class ApplicationBeanConfigurer {
     /**
      * Configuration method of {@link SpringFxmlLoader } bean and {@link com.springfx.scenes.StageManager } bean
      * with optional resource bundle
+     *
      * @param applicationContext spring context to register beans
-     * @param stage primary stage of fx application to register it in {@link com.springfx.scenes.StageManager }
+     * @param stage              primary stage of fx application to register it in {@link com.springfx.scenes.StageManager }
      */
     public static void configure(ConfigurableApplicationContext applicationContext, Stage stage) {
         log.config("Setting up application beans");
@@ -36,9 +37,9 @@ public class ApplicationBeanConfigurer {
     private static void setResourceBundle(StageManagerImpl stageManager, ConfigurableApplicationContext applicationContext) {
         try {
             stageManager.setResourceBundle(applicationContext.getBean(ResourceBundle.class));
-            log.info("Resource bundle setup");
+            log.config("Resource bundle setup");
         } catch (NoSuchBeanDefinitionException e) {
-            log.info("No Resource bundle defined!");
+            log.config("No Resource bundle defined!");
         }
     }
 }

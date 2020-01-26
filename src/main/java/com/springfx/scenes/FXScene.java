@@ -10,6 +10,7 @@ import java.util.UUID;
 public interface FXScene {
 
     String IDENTIFIER_DELIMITER = ":";
+    String IDENTIFIER_NAME_DELIMITER = "__";
 
     @NonNull
     String getTitle();
@@ -43,6 +44,6 @@ public interface FXScene {
         if (isAlwaysNewScene()) {
             randomSuffixInCaseOfAlwaysNewScene = UUID.randomUUID().toString();
         }
-        return getTitle() + randomSuffixInCaseOfAlwaysNewScene + IDENTIFIER_DELIMITER + getFxmlFilePath();
+        return getTitle() + IDENTIFIER_NAME_DELIMITER + randomSuffixInCaseOfAlwaysNewScene + IDENTIFIER_DELIMITER + getFxmlFilePath();
     }
 }

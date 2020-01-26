@@ -43,8 +43,15 @@ public class StageManagerImpl extends AbstractStageManager {
     @Override
     public void switchScene(final FXScene scene) {
         log.config("Switching scene to " + scene.getTitle());
-        Parent viewRootNodeHierarchy = loadViewNodeHierarchy(scene.getFxmlFilePath(), resourceBundle);
-        show(viewRootNodeHierarchy, scene);
+        if (stageCollection.values().size() <= 1 || isStageAlreadyOpen(scene)) {
+            Parent viewRootNodeHierarchy = loadViewNodeHierarchy(scene.getFxmlFilePath(), resourceBundle);
+            show(viewRootNodeHierarchy, scene);
+        }
+    }
+
+    private boolean isStageAlreadyOpen(FXScene scene) {
+        return stageCollection.keySet().stream()
+                .noneMatch(identifier -> identifier.split(FXScene.IDENTIFIER_NAME_DELIMITER)[0].equals(scene.getTitle()));
     }
 
     /**
@@ -57,17 +64,23 @@ public class StageManagerImpl extends AbstractStageManager {
         log.config("Showing new scene : " + scene.getTitle());
         Stage stage = stageCollection.get(scene.identifier());
         if (stage == null || scene.isAlwaysNewScene()) {
-            stage = new Stage();
-            Parent sceneParent = loadViewNodeHierarchy(scene.getFxmlFilePath(), resourceBundle);
-            stage.setTitle(scene.getTitle());
-            prepareSizeOfStage(scene, stage);
-            stage.setScene(new Scene(sceneParent));
-            stage.setResizable(scene.isResizable());
-            stageCollection.put(scene.identifier(), stage);
-        } else {
-            switchScene(scene);
+            stage = setupStage(scene);
+            stage.show();
         }
-        stage.show();
+    }
+
+    private Stage setupStage(FXScene scene) {
+        Stage stage;
+        stage = new Stage();
+        Parent sceneParent = loadViewNodeHierarchy(scene.getFxmlFilePath(), resourceBundle);
+        stage.setTitle(scene.getTitle());
+        prepareSizeOfStage(scene, stage);
+        stage.setScene(new Scene(sceneParent));
+        stage.setResizable(scene.isResizable());
+        String sceneIdentifier = scene.identifier();
+        stage.setOnCloseRequest(event -> stageCollection.remove(sceneIdentifier));
+        stageCollection.put(sceneIdentifier, stage);
+        return stage;
     }
 
     /**
