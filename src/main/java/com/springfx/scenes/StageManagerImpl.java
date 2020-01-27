@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
@@ -46,6 +48,12 @@ public class StageManagerImpl extends AbstractStageManager {
         if (stageCollection.values().size() <= 1 || isStageAlreadyOpen(scene)) {
             Parent viewRootNodeHierarchy = loadViewNodeHierarchy(scene.getFxmlFilePath(), resourceBundle);
             show(viewRootNodeHierarchy, scene);
+        } else {
+            stageCollection.keySet().stream()
+                    .filter(identifier -> identifier.split(FXScene.IDENTIFIER_NAME_DELIMITER)[0].equals(scene.getTitle()))
+                    .map(stageCollection::get)
+                    .filter(Objects::nonNull)
+                    .forEach(Stage::toFront);
         }
     }
 
@@ -67,6 +75,7 @@ public class StageManagerImpl extends AbstractStageManager {
             stage = setupStage(scene);
             stage.show();
         }
+        stage.toFront();
     }
 
     private Stage setupStage(FXScene scene) {

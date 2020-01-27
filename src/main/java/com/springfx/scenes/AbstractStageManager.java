@@ -51,7 +51,6 @@ abstract class AbstractStageManager implements StageManager {
         stage.setResizable(fxScene.isResizable());
 
         try {
-            stage.toFront();
             stage.show();
         } catch (Exception e) {
             logAndExit("There was a problem in showing scene with title : " + fxScene.getTitle(), e);

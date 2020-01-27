@@ -1,6 +1,7 @@
 package com.springfx.config;
 
 import com.springfx.loader.SpringFxmlLoader;
+import com.springfx.scenes.StageManager;
 import com.springfx.scenes.StageManagerImpl;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -29,14 +30,14 @@ public class ApplicationBeanConfigurer {
         SpringFxmlLoader loader = new SpringFxmlLoader(applicationContext);
         ConfigurableListableBeanFactory beanFactory = applicationContext.getBeanFactory();
         beanFactory.registerSingleton(loader.getClass().getCanonicalName(), loader);
-        StageManagerImpl stageManager = new StageManagerImpl(stage, loader);
+        StageManager stageManager = new StageManagerImpl(stage, loader);
         beanFactory.registerSingleton(stageManager.getClass().getCanonicalName(), stageManager);
         setResourceBundle(stageManager, applicationContext);
     }
 
-    private static void setResourceBundle(StageManagerImpl stageManager, ConfigurableApplicationContext applicationContext) {
+    private static void setResourceBundle(StageManager stageManager, ConfigurableApplicationContext applicationContext) {
         try {
-            stageManager.setResourceBundle(applicationContext.getBean(ResourceBundle.class));
+            ((StageManagerImpl) stageManager).setResourceBundle(applicationContext.getBean(ResourceBundle.class));
             log.config("Resource bundle setup");
         } catch (NoSuchBeanDefinitionException e) {
             log.config("No Resource bundle defined!");
